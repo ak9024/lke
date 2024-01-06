@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  name: landing
+  namespace: frontend
+spec:
+  tls:
+  - hosts: 
+    - adiatma.tech
+    secretName: adiatma.tech
+  ingressClassName: traefik
+  rules:
+  - host: adiatma.tech
+    http:
+      paths:
+      - backend:
+          service:
+            name: landing
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
