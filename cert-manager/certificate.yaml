@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: testcert.adiatma.tech
+spec:
+  secretName: testcert.adiatma.tech
+  dnsNames:
+  - testcert.adiatma.tech
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer

@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production
+spec:
+  acme:
+    email: adiatma.mail@gmail.com
+    # to use the staging environment
+    # server: https://acme-staging-v02.api.letsencrypt.org/directory
+    # to use the production environment
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: issuer-letsencrypt-production
+    solvers:
+    - http01:
+       ingress:
+         class: traefik
+
