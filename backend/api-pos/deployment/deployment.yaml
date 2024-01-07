@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-pos
+  namespace: backend
+  labels:
+    app: api-pos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-pos
+  template:
+    metadata:
+      labels:
+        app: api-pos
+    spec:
+      containers:
+      - name: api-pos
+        image: adiatma/api-pos:latest
+        ports:
+        - containerPort: 4000
