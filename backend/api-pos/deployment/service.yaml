@@ -6,7 +6,7 @@ metadata:
   namespace: backend
 spec:
   selector:
-    app.kubernetes.io/name: api-pos
+    app: api-pos
   ports:
     - protocol: TCP
       port: 4000
