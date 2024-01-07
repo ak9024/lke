@@ -24,3 +24,6 @@ spec:
             requests:
               memory: "4Mi"
               cpu: "2m"
+          env:
+           - name: PUBLIC_WP_HOST
+             value: http://10.2.2.3:8080

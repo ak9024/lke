@@ -92,10 +92,10 @@ const posts = await wp_posts.json()
 								<a href={`/blog/${post.slug}`}>
 									<h4 class="title" set:html={post.title.rendered} />
 								</a>
-								<p set:html={post.content.rendered} />
 								<p class="date">
 					        <p set:html={post.date} />
 					      </p>
+								<p set:html={post.content.rendered} />
 							</li>
 						))
 					}
