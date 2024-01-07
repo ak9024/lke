@@ -109,5 +109,5 @@ Expose the service to ingress
 
 ```bash
 kubectl create ingress <ingress-name> --rule="<domain.com>/*=<service:port>,tls=<domain.com>"
-k annotate ing/<ingress-name> cert-manager.io/cluster-issuer=letsencrypt-production
+kubectl annotate ing/<ingress-name> cert-manager.io/cluster-issuer=letsencrypt-production
 ```
