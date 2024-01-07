@@ -21,3 +21,7 @@ spec:
         image: adiatma/api-pos:latest
         ports:
         - containerPort: 4000
+        resources:
+          requests:
+            cpu: "1m"
+            memory: "4Mi"
