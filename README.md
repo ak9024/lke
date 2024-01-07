@@ -11,7 +11,7 @@
 Setup kubernetes config.
 
 ```bash
-# downlow new config from LKE and copy to .kube/config
+# download new config from LKE and copy to .kube/config
 KUBECONFIG=~/Downloads/config.yaml kubectl config view --raw > ~/.kube/config
 # merge old config with new config
 mv .kube/config .kube/config.old
@@ -103,4 +103,11 @@ spec:
     - http01:
        ingress:
          class: traefik
+```
+
+Expose the service to ingress
+
+```bash
+kubectl create ingress <ingress-name> --rule="<domain.com>/*=<service:port>,tls=<domain.com>"
+k annotate ing/<ingress-name> cert-manager.io/cluster-issuer=letsencrypt-production
 ```

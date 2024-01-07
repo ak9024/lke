@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  name: landing-2
+  namespace: frontend
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: malascoding.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: landing
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - malascoding.com
+    secretName: malascoding.com
+
