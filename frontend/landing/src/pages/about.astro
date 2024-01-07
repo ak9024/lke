@@ -3,10 +3,10 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-
-const wp_page = await fetch("https://wordpress.adiatma.tech/wp-json/wp/v2/pages?slug=about")
+const wp_page = await fetch(`${import.meta.env.PUBLIC_WP_HOST}/wp-json/wp/v2/pages?slug=about`)
 const [page] = await wp_page.json()
 ---
+
 <html lang="en">
 	<head>
 		<BaseHead title={page.title.rendered} description={page.content.rendered} />
@@ -57,6 +57,7 @@ const [page] = await wp_page.json()
 			<article>
 				<div class="prose">
 					<div class="title">
+						<h1>{page.title.rendered}</h1>
 						<div class="date">
 							{
 								page.date && (
@@ -66,7 +67,6 @@ const [page] = await wp_page.json()
 								)
 							}
 						</div>
-						<h1>{page.title.rendered}</h1>
 						<hr />
 					</div>
 					<div set:html={page.content.rendered} />

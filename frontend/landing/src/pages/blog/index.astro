@@ -4,11 +4,10 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 
-const wp_posts = await fetch("https://wordpress.adiatma.tech/wp-json/wp/v2/posts")
+const wp_posts = await fetch(`${import.meta.env.PUBLIC_WP_HOST}/wp-json/wp/v2/posts`)
 const posts = await wp_posts.json()
 ---
 
-<!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
