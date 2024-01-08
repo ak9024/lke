@@ -95,7 +95,7 @@ const posts = await wp_posts.json()
 								<p class="date">
 					        <p set:html={post.date} />
 					      </p>
-								<p set:html={post.content.rendered} />
+								<p set:html={post.excerpt.rendered} />
 							</li>
 						))
 					}

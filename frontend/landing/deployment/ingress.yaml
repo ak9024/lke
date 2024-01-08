@@ -20,6 +20,6 @@ spec:
           service:
             name: landing
             port:
-              number: 8080
+              number: 4321
         path: /
         pathType: Prefix

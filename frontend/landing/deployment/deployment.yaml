@@ -19,7 +19,7 @@ spec:
           image: adiatma/lke-landing
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 4321
           resources:
             requests:
               memory: "4Mi"
