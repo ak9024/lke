@@ -7,6 +7,6 @@ helm upgrade --install wordpress bitnami/wordpress \
 # and next edit svc/wordpress change type LoadBalancer to ClusterIP
 # then create ingress for wp
 create ingress wordpress --rule="wordpress.adiatma.tech/*=wordpress:80,tls=wordpress.adiatma.tech"
-# add cert-manager with lets-encrypt
+# add annotate for cert-manager to enabled https
 kubectl annotate ingress/wordpress cert-manager.io/cluster-issuer=letsencrypt-production
 ```
