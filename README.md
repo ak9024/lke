@@ -13,7 +13,7 @@ Setup kubernetes config.
 ```bash
 # download new config from LKE and copy to .kube/config
 KUBECONFIG=~/Downloads/config.yaml kubectl config view --raw > ~/.kube/config
-# merge old config with new config
+# merge old config with a new config
 mv .kube/config .kube/config.old
 KUBECONFIG=.kube/config.old:~/path/config.yaml kubectl config view —raw > .kube/config
 rm -rf .kube/config.old
@@ -41,6 +41,12 @@ helm upgrade --install traefik traefik/traefik \
 --create-namespace --namespace traefik \
 --set "ports.websecure.tls.enable.enabled=true" \
 --set "providers.kubernetesIngress.publishedService.enabled=true"
+
+# traefik dashboard
+# https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md
+kubectl port-forward deploy/traefik 9000:9000
+# access
+# http://localhost:9000/dashboard
 ```
 
 Setup **metrics-server** to enabled API Metrics.
@@ -83,6 +89,7 @@ helm upgrade --install cert-manager cert-manager/cert-manager \
 > --create-namespace --namespace cert-manager \
 > --set installCRDs=true
 ```
+
 Create `cluster-issuer.yaml` and `kubectl apply -f cluster-issuer.yaml`
 
 ```yaml
