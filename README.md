@@ -41,6 +41,11 @@ helm upgrade --install traefik traefik/traefik \
 --create-namespace --namespace traefik \
 --set "ports.websecure.tls.enable.enabled=true" \
 --set "providers.kubernetesIngress.publishedService.enabled=true"
+# force redirect http to https
+kubectl edit deploy/traefik
+# and add
+# spec.containers[].args
+- --entrypoints.web.http.redirections.entryPoint.to=:443
 
 # traefik dashboard
 # https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md
