@@ -6,6 +6,11 @@
 - `kubectx` (https://github.com/ahmetb/kubectx)
 - `helm` (https://helm.sh/docs/intro/install/)
 
+### Domain
+
+- adiatma.tech
+- malascoding.com
+
 ### Getting Started
 
 Setup kubernetes config.
@@ -13,6 +18,7 @@ Setup kubernetes config.
 ```bash
 # download new config from LKE and copy to .kube/config
 KUBECONFIG=~/Downloads/config.yaml kubectl config view --raw > ~/.kube/config
+
 # merge old config with a new config
 mv .kube/config .kube/config.old
 KUBECONFIG=.kube/config.old:~/path/config.yaml kubectl config view —raw > .kube/config
@@ -56,36 +62,6 @@ kubectl port-forward deploy/traefik 9000:9000
 # http://localhost:9000/dashboard
 ```
 
-Setup **metrics-server** to enabled API Metrics.
-
-```bash
-# add helm repo
-helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
-# install
-helm upgrade --install metrics-server metrics-server/metrics-server \
---create-namespace --namespace metrics-server
-
-# next
-kubectl edit deployment/metrics-server
-# set config https://github.com/kubernetes-sigs/metrics-server
---kubelet-preferred-address-types=InternalIP # set the priority the address type
---kubelet-insecure-tls # Do not verify the CA of serving certificates presented by Kubelets. For testing purposes only.
-
-# check metrics-server
-kg apiservices | grep metrics
-v1beta1.metrics.k8s.io                 metrics-server/metrics-server   True  
-```
-
-Setup **monitoring** with `kube-prometheus-stack`
-
-```bash
-# add repo
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-# install kube-prometheus-stack
-helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack \
---create-namespace --namespace kube-prometheus-stack
-```
-
 Setup **SSL/TLS** with `cert-manager`
 
 ```bash
@@ -124,4 +100,34 @@ Expose the service to ingress
 ```bash
 kubectl create ingress <ingress-name> --rule="<domain.com>/*=<service:port>,tls=<domain.com>"
 kubectl annotate ing/<ingress-name> cert-manager.io/cluster-issuer=letsencrypt-production
+```
+
+Setup **metrics-server** to enabled API Metrics. (optional)
+
+```bash
+# add helm repo
+helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+# install
+helm upgrade --install metrics-server metrics-server/metrics-server \
+--create-namespace --namespace metrics-server
+
+# next
+kubectl edit deployment/metrics-server
+# set config https://github.com/kubernetes-sigs/metrics-server
+--kubelet-preferred-address-types=InternalIP # set the priority the address type
+--kubelet-insecure-tls # Do not verify the CA of serving certificates presented by Kubelets. For testing purposes only.
+
+# check metrics-server
+kg apiservices | grep metrics
+v1beta1.metrics.k8s.io                 metrics-server/metrics-server   True  
+```
+
+Setup **monitoring** with `kube-prometheus-stack` (optional)
+
+```bash
+# add repo
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+# install kube-prometheus-stack
+helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack \
+--create-namespace --namespace kube-prometheus-stack
 ```
